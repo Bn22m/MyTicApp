@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+To MyTicApp
+-->
+<HTML>
+    <TITLE>
+        MyTicApp Order Tracking
+    </TITLE>
+    <BODY BGCOLOR="#00004A">
+        <FONT COLOR="Yellow" SIZE=+2>
+        <p><img src="img/myticapp.png" alt="myticapp">
+            <a href="welcome.jsp?yname=#info">Info.</a><br>
+            <B>Welcome to MyTicApp</B></FONT><BR>
+            <FONT COLOR="Yellow" SIZE=+2><B>Order Tracking.</B></FONT><BR><BR>
+        <P><FONT COLOR="White">
+            You can view the status and shipping date of your order with our Status Tracker below.<br>
+            Just enter your order tracking number, click "Show Status" and you'll receive up to date<br> 
+            order status information directly from our Customer Service Center!</FONT><BR>
+        <hr>
+        <form action="message.jsp" name="trackform">
+            <br><br>    
+            Ticket Number:<input type="number" value="0" name="xnumber" />     
+            <br>  
+            User Name:<input type="text" value="name" name="xname" />     
+            <br>
+            <br>
+            <button type="submit">Show Status</button>
+            <br><hr><br>
+        </form>
+    </BODY>
+</HTML>

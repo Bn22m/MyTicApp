@@ -1,0 +1,31 @@
+<div class="row-fluid">
+
+    <!-- left sidebar menu: -->
+    <div class="span2">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="#/info">Info</a></li>
+            <li><a href="#/help">Help Desk</a></li>
+            <li><a href="#/technical">Technical Support</a></li>
+            <li><a href="#/research">Research&nbsp;&AMP;&nbsp;Development</a></li>
+        </ul>
+    </div>
+    
+    <!-- table with help desk content -->
+    <div class="span9">
+        <table class="table table-striped">
+            <tr data-ng-repeat=" product in test">
+                <td>{{$index + 1 }}</td>
+                <td><img src="" data-ng-src="{{product.des}}.0.jpg"/></td>
+                <td>{{product.des}}</td>
+                <td>{{product.price}}</td>               
+                <td><button class="btn btn-primary" data-ng-click="addToCart(product)">Add to Cart</button></td>
+            </tr>
+        </table>
+    </div>
+    
+</div>
+
+
+
+
+

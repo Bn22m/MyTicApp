@@ -1,0 +1,30 @@
+<!-- checkout button -->
+<div class="row-fluid">
+    <div class="span3 offset1">
+        <a href="#new" class="btn btn-large btn-success">Proceed to Checkout</a>
+    </div>
+    <div class="span4">
+        <p class="lead">Your subtotal is {{total}}</p>
+    </div>
+
+    
+    <div class="span3">
+        <button class="btn btn-large btn-danger" type="button" data-ng-click="removeAll()">Clear the Cart</button>    
+    </div>
+</div>
+
+<!-- shopping cart content -->
+<div class="row-fluid">
+    <div class="span10 offset1">
+        <h1>The content of your cart is:</h1>
+        <table class="table table-striped">
+            <tr data-ng-repeat="product in cartContent">
+                <td>{{$index + 1 }}</td>
+                <td><img src="" data-ng-src="{{product.des}}.1.jpg"/></td>
+                <td>{{product.des}}</td>
+                <td>{{product.price}}</td>
+                <td><button class="btn btn-warning" data-ng-click="remove(product)">Remove</button></td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,187 @@
+<!--
+/*
+ * MyTicApp.
+ */
+-->
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>MyTicApp</title>
+        <style type="text/css">
+            body {
+                padding-top: 10px;
+                padding-bottom: 90px;
+                background-color: greenyellow;
+            }
+            H1{color: maroon;}
+        </style>   
+    </head>
+    <body>
+        <script type="text/javascript">
+            function getXmlHttpRequest() 
+            {
+                try
+                {
+                    // Firefox, Opera 8.0+, Safari
+                    return new XMLHttpRequest();
+                }
+                catch (e)
+                {
+                    // Internet Explorer
+                    try
+                    {
+                        return new ActiveXObject("Msxml2.XMLHTTP");
+                    }
+                    catch (e)
+                    {
+                        try
+                        {
+                            return new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        catch (e)
+                        {
+                            alert("Your browser does not support AJAX!");
+                            return null;
+                        }
+                    }
+                }
+            }
+            function getMessages()
+            {
+                var xmlHttp = getXmlHttpRequest();
+                var pic = document.getElementById("spic").value;
+                xmlHttp.onreadystatechange=function()
+                {
+                    if(xmlHttp.readyState==4)
+                    {
+                        document.getElementById("query").innerHTML="GET app/messages";
+                        document.getElementById("output").innerHTML=xmlHttp.responseText;
+                        document.getElementById("picturex").innerHTML="<br><p><img src="+pic+" alt="+pic+"><br>";
+                    }
+                }
+                xmlHttp.open("GET","app/messages/",true);
+                xmlHttp.send(null);
+            }
+            function getMessage(index)
+            {
+                var xmlHttp = getXmlHttpRequest();
+                xmlHttp.onreadystatechange=function()
+                {
+                    if(xmlHttp.readyState==4)
+                    {
+                        document.getElementById("query").innerHTML="GET app/messages/" + index;
+                        if(xmlHttp.responseText.indexOf("<body>") != -1) {
+                            s = xmlHttp.responseText.substring(xmlHttp.responseText.indexOf("<body>") + 6, xmlHttp.responseText.indexOf("</body>"))
+                            document.getElementById("output").innerHTML=s;
+                        } 
+                        else 
+                        {
+                            document.getElementById("output").innerHTML=xmlHttp.responseText;
+                        }   
+                    }
+                }
+                xmlHttp.open("GET","app/messages/" + index,true);
+                xmlHttp.send(null);
+            }
+            function deleteMessage(index)
+            {
+                var xmlHttp = getXmlHttpRequest();
+                xmlHttp.onreadystatechange=function()
+                {
+                    if(xmlHttp.readyState==4)
+                    {
+                        document.getElementById("query").innerHTML="DELETE app/messages/" + index;
+                        if(xmlHttp.responseText.indexOf("<body>") != -1) 
+                        {
+                            s = xmlHttp.responseText.substring(xmlHttp.responseText.indexOf("<body>") + 6, xmlHttp.responseText.indexOf("</body>"))
+                            document.getElementById("output").innerHTML=s;
+                        } 
+                        else 
+                        {
+                            document.getElementById("output").innerHTML=xmlHttp.responseText;
+                        }
+                    }
+                };
+                xmlHttp.open("DELETE","app/messages/" + index,true);
+                xmlHttp.send(null);
+            }
+
+            function addMessage(message)
+            {
+                var xmlHttp = getXmlHttpRequest();
+                xmlHttp.onreadystatechange=function()
+                {
+                    if(xmlHttp.readyState==4)
+                    {
+                        document.getElementById("query").innerHTML="POST app/messages";
+                        document.getElementById("output").innerHTML="";
+                    }
+                };
+                xmlHttp.open("POST","app/messages/",true);
+                xmlHttp.send(message);
+            }
+            function init() 
+            {
+                window.document.getElementById("btnView").onclick = function()
+                {
+                    document.getElementById("picturex").innerHTML="<br><p><img src="+spic.value+" alt="+spic.value+"><br>";
+                    document.getElementById("picturey").innerHTML="<br><p><img src="+film.value+" alt="+film.value+"><br>"; 
+                };
+            };
+             window.onload = function()
+            {
+                init();
+            };
+        </script>
+        <p><img src="img/myticapp.png" alt="myticapp">
+        <a href="welcome.jsp?yname=#info">Info.</a>    
+        <h1>Message Board</h1>
+        <form name="form0">
+            <button type="button" name="GET0" onclick="getMessages()">LIST ALL MESSAGES</button>
+        </form>
+        <form name="form1">
+            Message id#: <input style="width: 4em" type="text" name="messageNumber" />
+            <button type="button" name="GET1" onclick="getMessage(document.form1.messageNumber.value)">GET MESSAGE</button>    
+        </form>
+
+        <form name="form2">
+            Message id#: <input style="width: 4em" type="text" name="messageNumber" />
+            <button type="button" name="GET2" onclick="deleteMessage(document.form2.messageNumber.value)">DELETE MESSAGE</button>
+        </form>
+
+        <form name="form3">
+            Message: <input type="text" name="messageText" />
+            <button type="button" name="GET2" onclick="addMessage(document.form3.messageText.value)">ADD MESSAGE</button>
+        </form>
+
+        <h2>Message Board</h2>
+        <div id="query" style="font-weight: bold"></div>
+        <h3>result</h3>
+        <br>
+            Your Message:<textarea id="output" rows="10" cols="50" ></textarea>
+        <br>
+        <div id="picturex"></div>
+        <div id="picturey"></div>
+        <div id="xpic">
+                <br>  
+                Site picture :<input type="text" value="img/site/myticapp.png" id="spic" name="xpicturex" />     
+                <br>
+                <strong>Select/Enter the picture path.</strong> 
+                <select id='film'  >
+                <option value='img/site/myticapp.png'>MyticApp.</option>
+                <option value='img/more.png'>More.</option>
+                <option value='img/send.png'>Send.</option>
+                <option value='img/products/ITSupport.png'>ITSupport.</option>
+                <option value='img/categories/help.jpg'>Help Desk.</option>
+                <option value='img/site/site.png'>Site.</option>
+                </select><br/>
+        </div>
+        <br>
+            <button id="btnView">View Picture</button>
+        <br>
+        <script type="text/javascript">
+            getMessages();
+        </script>
+        <br><br>
+    </body>
+</html>
